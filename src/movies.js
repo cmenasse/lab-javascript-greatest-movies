@@ -16,6 +16,9 @@ function scoresAverage(movies) {
   if (movies.length < 1)
     return (0);
   return (Math.round((movies.filter(x => x.score > 0).reduce((acc, x) => acc + x.score, 0) / movies.length +  Number.EPSILON) * 100) / 100);
+  //since movies might include score missing values, correct is:
+  //movies = movies.filter(x => x.score > 0);
+  //return (Math.round((movies.reduce((acc, x) => acc + x.score, 0) / movies.length +  Number.EPSILON) * 100) / 100);
 }
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
@@ -25,8 +28,7 @@ function dramaMoviesScore(movies) {
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(movies) {
-
-  return (movies.filter(x => typeof x.year == 'number').sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)).sort(((a, b) => (a.year > b.year) ? 1 : ((b.year > a.year) ? -1 : 0))));
+  return (movies.filter(x => typeof x.year == 'number').sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)).sort(((a, b) => a.year - b.year)));
 }
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
@@ -35,7 +37,9 @@ function orderAlphabetically(movies) {
 }
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-function turnHoursToMinutes() {}
+function turnHoursToMinutes(movies) {
+  return (movies.map(x => { return {...x, duration: Number(x.duration.substring(0, x.duration.indexOf('h'))) * 60 + Number(x.duration.substring(x.duration.indexOf('min') -2, x.duration.indexOf('min')))}}));
+}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg() {}
