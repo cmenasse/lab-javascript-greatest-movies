@@ -1,22 +1,38 @@
 // Iteration 1: All directors? - Get the array of all directors.
 // _Bonus_: It seems some of the directors had directed multiple movies so they will pop up multiple times in the array of directors.
 // How could you "clean" a bit this array and make it unified (without duplicates)?
-function getAllDirectors() {}
+function getAllDirectors(movies) {
+  return (movies.map(x => x.director));
+}
 
 // Iteration 2: Steven Spielberg. The best? - How many drama movies did STEVEN SPIELBERG direct?
-function howManyMovies() {}
+function howManyMovies(movies) {
+  return (movies.filter(x => (x.director === 'Steven Spielberg' && x.genre.includes('Drama'))).length);
+  //return (movies.reduce((acc, x) => acc + (x.director === 'Steven Spielberg' && x.genre.includes('Drama')), 0));
+}
 
 // Iteration 3: All scores average - Get the average of all scores with 2 decimals
-function scoresAverage() {}
+function scoresAverage(movies) {
+  if (movies.length < 1)
+    return (0);
+  return (Math.round((movies.filter(x => x.score > 0).reduce((acc, x) => acc + x.score, 0) / movies.length +  Number.EPSILON) * 100) / 100);
+}
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
-function dramaMoviesScore() {}
+function dramaMoviesScore(movies) {
+  return (scoresAverage(movies.filter(x => x.genre.includes('Drama'))));
+}
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear() {}
+function orderByYear(movies) {
+
+  return (movies.filter(x => typeof x.year == 'number').sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)).sort(((a, b) => (a.year > b.year) ? 1 : ((b.year > a.year) ? -1 : 0))));
+}
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically() {}
+function orderAlphabetically(movies) {
+  return (movies.filter(x => typeof x.title == 'string').sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)).slice(0, 20).map(x => x.title));
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes() {}
